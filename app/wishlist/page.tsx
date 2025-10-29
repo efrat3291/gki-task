@@ -2,7 +2,7 @@
 
 import { useWishlistStore } from "@/store/wishListStore";
 import { useCartStore } from "@/store/cartStore";
-import styles from "./wishList.module.css";
+import styles from "./wishlist.module.css";
 
 export default function WishlistPage() {
   const { items, toggleWishlist } = useWishlistStore();
