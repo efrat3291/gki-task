@@ -1,9 +1,9 @@
 "use client";
 
 import { useCartStore } from "@/store/cartStore";
-import styles from "./CartPage.module.css";
+import styles from "./checkout.module.css";
 
-export default function CartPage() {
+export default function Checkout() {
   const {
     items,
     increaseQty,

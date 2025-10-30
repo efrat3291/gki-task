@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { getProducts } from "@/utils/api";
 import ProductList from "@/components/ProductList";
