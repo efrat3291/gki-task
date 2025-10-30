@@ -10,6 +10,11 @@ export default function ProductCard({ product }: { product: Product }) {
   const { toggleWishlist, isInWishlist } = useWishlistStore();
   const isWishlisted = isInWishlist(product.id);
 
+  const handleAddToCart = () => {
+    addToCart(product);
+    window.dispatchEvent(new Event('openCart'));
+  };
+
   return (
     <div className={styles.card}>
       <button
@@ -34,7 +39,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <h2 className={styles.title}>{product.title}</h2>
         <p className={styles.price}>${product.price}</p>
         <button
-          onClick={() => addToCart(product)}
+          onClick={handleAddToCart}
           className={styles.addToCartBtn}
         >
           Add To Cart

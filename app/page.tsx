@@ -3,11 +3,14 @@ import { useEffect, useState } from "react";
 import { getProducts } from "@/utils/api";
 import ProductList from "@/components/ProductList";
 import { useCategoryStore } from "@/store/categoryStore";
+import FloatingCart from "@/components/FloatingCart";
 
 export default function HomePage() {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  
   const category = useCategoryStore((state) => state.category);
 
   useEffect(() => {
@@ -24,6 +27,13 @@ export default function HomePage() {
     fetchProducts();
   }, []);
 
+  // Listen for cart open events
+  useEffect(() => {
+    const handleOpenCart = () => setIsCartOpen(true);
+    window.addEventListener('openCart', handleOpenCart);
+    return () => window.removeEventListener('openCart', handleOpenCart);
+  }, []);
+
   const filteredProducts = category === "all" 
     ? products 
     : products.filter(p => p.category === category);
@@ -35,6 +45,7 @@ export default function HomePage() {
     <div className="max-w-6xl mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6">{category === "all" ? "Latest Products" : category}</h1>
       <ProductList products={filteredProducts} />
+      <FloatingCart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 }
